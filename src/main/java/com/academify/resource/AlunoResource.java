@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/aluno")
@@ -30,5 +31,30 @@ public class AlunoResource {
 
         return new ResponseEntity(aluno, HttpStatus.OK);
     }
+
+    @GetMapping("getById/{id}")
+    public Optional<Aluno> getById(@PathVariable(value = "id") int id) {
+        return alunoRepository.findById(id);
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<Aluno> editar(@RequestBody Aluno aluno) {
+            aluno = alunoRepository.save(aluno);
+            return new ResponseEntity(aluno, HttpStatus.OK);
+    }
+
+    @GetMapping("/total")
+    public long getTotal() {
+        return alunoRepository.count();
+    }
+
+    @PostMapping("/remove/{id}")
+    public Aluno remove(@PathVariable(value = "id") int id) {
+        Optional<Aluno> optionalAluno = alunoRepository.findById(id);
+        alunoRepository.delete(optionalAluno.get());
+        return optionalAluno.get();
+    }
+
+
 
 }

@@ -24,7 +24,7 @@ public class Aluno {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date dataHoraCadastro;
 
-    private Aluno() {
+    public Aluno() {
         this.dataHoraCadastro = new Date();
     }
 
