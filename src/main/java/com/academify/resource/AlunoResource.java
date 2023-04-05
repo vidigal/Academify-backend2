@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +47,7 @@ public class AlunoResource {
         return alunoRepository.count();
     }
 
-    @PostMapping("/remove/{id}")
+    @DeleteMapping("/remove/{id}")
     public Aluno remove(@PathVariable(value = "id") int id) {
         Optional<Aluno> optionalAluno = alunoRepository.findById(id);
         alunoRepository.delete(optionalAluno.get());
