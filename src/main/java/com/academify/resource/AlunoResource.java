@@ -28,7 +28,7 @@ public class AlunoResource {
     public ResponseEntity<Aluno> create(@RequestBody Aluno aluno) {
         AlunoController alunoController = new AlunoController();
         if (!alunoController.isAlunoValido(aluno)) {
-            return new ResponseEntity("Nome do aluno é inválido", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity("Dados do aluno inválido", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         aluno.setDataHoraCadastro(new Date());
