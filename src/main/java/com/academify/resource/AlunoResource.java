@@ -1,5 +1,6 @@
 package com.academify.resource;
 
+import com.academify.controller.AlunoController;
 import com.academify.dominio.Aluno;
 import com.academify.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,15 @@ public class AlunoResource {
 
     @PostMapping("/create")
     public ResponseEntity<Aluno> create(@RequestBody Aluno aluno) {
+        AlunoController alunoController = new AlunoController();
+        if (!alunoController.isAlunoValido(aluno)) {
+            return new ResponseEntity("Nome do aluno é inválido", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         aluno.setDataHoraCadastro(new Date());
         aluno = alunoRepository.save(aluno);
-
         return new ResponseEntity(aluno, HttpStatus.OK);
+
     }
 
     @GetMapping("getById/{id}")
@@ -38,8 +44,13 @@ public class AlunoResource {
 
     @PutMapping("/edit")
     public ResponseEntity<Aluno> editar(@RequestBody Aluno aluno) {
-            aluno = alunoRepository.save(aluno);
-            return new ResponseEntity(aluno, HttpStatus.OK);
+        AlunoController alunoController = new AlunoController();
+        if (!alunoController.isAlunoValido(aluno)) {
+            return new ResponseEntity("Nome do aluno é inválido", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        aluno = alunoRepository.save(aluno);
+        return new ResponseEntity(aluno, HttpStatus.OK);
     }
 
     @GetMapping("/total")
