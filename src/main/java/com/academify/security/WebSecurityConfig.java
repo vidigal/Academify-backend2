@@ -18,6 +18,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors()
+                .and()
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
@@ -29,7 +31,7 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.inMemoryAuthentication().withUser("victor").password("$2a$10$BckPUI4.J3GDuEKNfRIT7OBHOrSBZVndXLI66A2S5R7aGYDHfT0mG").roles("ADMIN");
+        authenticationManagerBuilder.inMemoryAuthentication().withUser("victor").password("$2a$10$BckPUI4.J3GDuEKNfRIT7OBHOrSBZVndXLI66A2S5R7aGYDHfT0mG").roles("ADMIN").and();
         return authenticationManagerBuilder.build();
     }
 
